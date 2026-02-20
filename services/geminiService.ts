@@ -46,6 +46,6 @@ export const generateReelsCaption = async (inputs: CopyInputs): Promise<string> 
     return response.text || "Erro ao gerar conteúdo.";
   } catch (error) {
     console.error("Gemini API Error:", error);
-    throw new Error("Falha na comunicação com a inteligência artificial. Tente novamente.");
+    throw new Error("Falha na comunicação com a inteligência artificial. Tente novamente.", { cause: error });
   }
 };
