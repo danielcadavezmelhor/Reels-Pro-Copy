@@ -3,7 +3,13 @@ import { GoogleGenAI } from "@google/genai";
 import { CopyInputs } from "../types";
 
 export const generateReelsCaption = async (inputs: CopyInputs): Promise<string> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const apiKey = process.env.GEMINI_API_KEY;
+  
+  if (!apiKey || apiKey === 'undefined') {
+    throw new Error("A chave de API (GEMINI_API_KEY) não foi encontrada. Certifique-se de configurá-la nas variáveis de ambiente do Vercel.");
+  }
+
+  const ai = new GoogleGenAI({ apiKey });
   
   const prompt = `
     Crie um texto objetivo para a legenda de um Reels no Instagram sobre o assunto: "${inputs.subject}".
